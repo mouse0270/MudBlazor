@@ -1,0 +1,30 @@
+@namespace MudBlazor.Docs.Examples
+
+<MudGrid>
+    <MudItem xs="12" md="8">
+        <MudStack xs="_flexDirectionXs" md="_flexDirectionMd">
+            <MudPaper Class="pa-3">Item 1</MudPaper>
+            <MudPaper Class="pa-3">Item 2</MudPaper>
+            <MudPaper Class="pa-3">Item 3</MudPaper>
+        </MudStack>
+    </MudItem>
+    <MudItem xs="12" md="4">
+        <MudSelect T="FlexDirection" @bind-Value="_flexDirectionXs" Label="Flex Direction (Extra Small)" Class="mb-4">
+            <MudSelectItem Value="FlexDirection.Row">Row</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.RowReverse">Row Reverse</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.Column">Column</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.ColumnReverse">Column Reverse</MudSelectItem>
+        </MudSelect>
+        <MudSelect T="FlexDirection" @bind-Value="_flexDirectionMd" Label="Flex Direction (Medium)">
+            <MudSelectItem Value="FlexDirection.Row">Row</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.RowReverse">Row Reverse</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.Column">Column</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.ColumnReverse">Column Reverse</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+@code {
+    FlexDirection _flexDirectionXs = FlexDirection.Column;
+    FlexDirection _flexDirectionMd = FlexDirection.Row;
+}

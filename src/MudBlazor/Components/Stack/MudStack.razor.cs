@@ -17,6 +17,12 @@ public partial class MudStack : MudComponentBase
     protected string Classname =>
         new CssBuilder("d-flex")
             .AddClass($"flex-{(Row ? "row" : "column")}{(Reverse ? "-reverse" : string.Empty)}")
+            .AddClass($"flex-{xs?.ToDescriptionString()}-xs", xs is not null)
+            .AddClass($"flex-{sm?.ToDescriptionString()}-sm", sm is not null)
+            .AddClass($"flex-{md?.ToDescriptionString()}-md", md is not null)
+            .AddClass($"flex-{lg?.ToDescriptionString()}-lg", lg is not null)
+            .AddClass($"flex-{xl?.ToDescriptionString()}-xl", xl is not null)
+            .AddClass($"flex-{xxl?.ToDescriptionString()}-xxl", xxl is not null)
             .AddClass($"justify-{Justify?.ToDescriptionString()}", Justify is not null)
             .AddClass($"align-{AlignItems?.ToDescriptionString()}", AlignItems is not null)
             .AddClass($"flex-{Wrap?.ToDescriptionString()}", Wrap is not null)
@@ -97,6 +103,49 @@ public partial class MudStack : MudComponentBase
     [Parameter]
     [Category(CategoryTypes.Stack.Behavior)]
     public Wrap? Wrap { get; set; }
+
+    /// <summary>
+    /// Sets the flex-direction at the 'extra small' breakpoint.
+    /// </summary>
+    [Parameter]
+    [Category(CategoryTypes.Stack.Behavior)]
+    public FlexDirection? xs { get; set; }
+
+    /// <summary>
+    /// Sets the flex-direction at the 'small' breakpoint.
+    /// </summary>
+    [Parameter]
+    [Category(CategoryTypes.Stack.Behavior)]
+    public FlexDirection? sm { get; set; }
+
+    /// <summary>
+    /// Sets the flex-direction at the 'medium' breakpoint.
+    /// </summary>
+    [Parameter]
+    [Category(CategoryTypes.Stack.Behavior)]
+    public FlexDirection? md { get; set; }
+
+    /// <summary>
+    /// Sets the flex-direction at the 'large' breakpoint.
+    /// </summary>
+    [Parameter]
+    [Category(CategoryTypes.Stack.Behavior)]
+    public FlexDirection? lg { get; set; }
+
+    /// <summary>
+    /// Sets the flex-direction at the 'extra large' breakpoint.
+    /// </summary>
+    [Parameter]
+    [Category(CategoryTypes.Stack.Behavior)]
+    public FlexDirection? xl { get; set; }
+
+    /// <summary>
+    /// Sets the flex-direction at the 'extra extra large' breakpoint.
+    /// </summary>
+    [Parameter]
+    [Category(CategoryTypes.Stack.Behavior)]
+    public FlexDirection? xxl { get; set; }
+
 
     /// <summary>
     /// The content within this component.

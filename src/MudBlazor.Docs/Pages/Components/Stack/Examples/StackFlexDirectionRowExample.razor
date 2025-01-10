@@ -1,0 +1,25 @@
+@namespace MudBlazor.Docs.Examples
+
+<MudGrid>
+    <MudItem xs="12" md="8">
+        <MudStack Row="_row" md="_flexDirectionMd">
+            <MudPaper Class="pa-3">Item 1</MudPaper>
+            <MudPaper Class="pa-3">Item 2</MudPaper>
+            <MudPaper Class="pa-3">Item 3</MudPaper>
+        </MudStack>
+    </MudItem>
+    <MudItem xs="12" md="4">
+        <MudSwitch @bind-Value="_row" Label="Row" Color="Color.Success" Class="mb-4" />
+        <MudSelect T="FlexDirection" @bind-Value="_flexDirectionMd" Label="Flex Direction">
+            <MudSelectItem Value="FlexDirection.Row">Row</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.RowReverse">Row Reverse</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.Column">Column</MudSelectItem>
+            <MudSelectItem Value="FlexDirection.ColumnReverse">Column Reverse</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+@code {
+    bool _row = true;
+    FlexDirection _flexDirectionMd = FlexDirection.Row;
+}

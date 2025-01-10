@@ -146,7 +146,6 @@ public partial class MudStack : MudComponentBase
     [Category(CategoryTypes.Stack.Behavior)]
     public FlexDirection? xxl { get; set; }
 
-
     /// <summary>
     /// The content within this component.
     /// </summary>

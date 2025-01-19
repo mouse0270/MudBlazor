@@ -25,11 +25,11 @@
         </DocsPageSection>
 
         <DocsPageSection>
-            <SectionHeader Title="Responsive Direction">
-                <Description>Using the breakpoint-specific properties: <CodeInline>@nameof(MudStack.xs)</CodeInline>, <CodeInline>@nameof(MudStack.sm)</CodeInline>, <CodeInline>@nameof(MudStack.md)</CodeInline>, <CodeInline>@nameof(MudStack.lg)</CodeInline>, <CodeInline>@nameof(MudStack.xl)</CodeInline>, and <CodeInline>@nameof(MudStack.xxl)</CodeInline> you can control when <CodeInline>@nameof(MudStack)</CodeInline> changes <code>flex-direction</code>. These properties allow developers to define different flex directions at various screen sizes, making the <CodeInline>@nameof(MudStack)</CodeInline> more adaptable and responsive across devices.</Description>
+            <SectionHeader Title="Breakpoint">
+                <Description>With the <CodeInline>@nameof(MudStack.Breakpoint)</CodeInline> property set, the state of the <CodeInline>@nameof(MudStack.Row)</CodeInline> property will be reversed based on the defined screen size breakpoint. For example, when set to a specific breakpoint such as <CodeInline>@nameof(Breakpoint.Md)</CodeInline>, the row state is reversed at that screen size. If set to a range like <CodeInline>@nameof(Breakpoint.MdAndUp)</CodeInline>, the row state will be reversed for all screen sizes greater than or equal to the specified breakpoint.</Description>
             </SectionHeader>
-            <SectionContent DarkenBackground="true" Code="@nameof(StackFlexDirectionExample)">
-                <StackFlexDirectionExample />
+            <SectionContent DarkenBackground="true" Code="@nameof(StackBreakpointExample)">
+                <StackBreakpointExample />
             </SectionContent>
         </DocsPageSection>
 

@@ -19,36 +19,3 @@
 }
 
 @include flex-direction("");
-
-
-@media (max-width: ($breakpoint-sm - 1px)) {
-  .flex-row-xs {
-    flex-direction: row !important;
-  }
-  .flex-row-reverse-xs {
-    flex-direction: row-reverse !important;
-  }
-  .flex-column-xs {
-    flex-direction: column !important;
-  }
-  .flex-column-reverse-xs {
-    flex-direction: column !important;
-  }
-}
-
-@each $name, $breakpoint in $breakpoints-css-utilities-only {
-  @media (min-width: $breakpoint) {
-    .flex-row-#{$name} {
-      flex-direction: row !important;
-    }
-    .flex-row-reverse-#{$name} {
-      flex-direction: row-reverse !important;
-    }
-    .flex-column-#{$name} {
-      flex-direction: column !important;
-    }
-    .flex-column-reverse-#{$name} {
-      flex-direction: column-reverse !important;
-    }
-  }
-}

@@ -16,13 +16,7 @@ public partial class MudStack : MudComponentBase
 {
     protected string Classname =>
         new CssBuilder("d-flex")
-            .AddClass($"flex-{(Row ? "row" : "column")}{(Reverse ? "-reverse" : string.Empty)}")
-            .AddClass($"flex-{xs?.ToDescriptionString()}-xs", xs is not null)
-            .AddClass($"flex-{sm?.ToDescriptionString()}-sm", sm is not null)
-            .AddClass($"flex-{md?.ToDescriptionString()}-md", md is not null)
-            .AddClass($"flex-{lg?.ToDescriptionString()}-lg", lg is not null)
-            .AddClass($"flex-{xl?.ToDescriptionString()}-xl", xl is not null)
-            .AddClass($"flex-{xxl?.ToDescriptionString()}-xxl", xxl is not null)
+            .AddClass(getFlexDirection())
             .AddClass($"justify-{Justify?.ToDescriptionString()}", Justify is not null)
             .AddClass($"align-{AlignItems?.ToDescriptionString()}", AlignItems is not null)
             .AddClass($"flex-{Wrap?.ToDescriptionString()}", Wrap is not null)
@@ -30,6 +24,67 @@ public partial class MudStack : MudComponentBase
             .AddClass($"flex-grow-{StretchItems?.ToDescriptionString()}", StretchItems is not null and not MudBlazor.StretchItems.None)
             .AddClass(Class)
             .Build();
+    
+    /// <summary>
+    /// Gets the CSS flex direction based on the current breakpoint and row settings.
+    /// </summary>
+    /// <remarks>
+    /// This property generates a CSS flex direction string based on the following conditions:
+    /// - If the breakpoint is not set or is "none" or "always", it returns the default direction based on the Row and Reverse properties.
+    /// - If the breakpoint is one of the predefined sizes ("xs", "sm", "md", "lg", "xl", "xxl"), it generates a flex direction string that changes at the specified breakpoint.
+    /// - If the breakpoint ends with "anddown", it generates a flex direction string that applies up to and including the specified breakpoint.
+    /// - If the breakpoint ends with "andup", it generates a flex direction string that applies from the specified breakpoint and up.
+    /// </remarks>
+    /// <returns>
+    /// A string representing the CSS flex direction based on the current breakpoint and row settings.
+    /// </returns>  
+    private string getFlexDirection() {
+        // Determine if reverse is needed
+        string reverse = Reverse ? "-reverse" : string.Empty;
+        // Sets the inital direction based on the Row Parameter and Appends the reverse if needed
+        string defaultState = (Row ? "row" : "column") + reverse;
+        // Sets the reverse direction based on the Row Parameter and Appends the reverse if needed
+        string reverseState = (Row ? "column" : "row") + reverse;
+
+        // Switch statement to determine the breakpoint and return the appropriate flex direction
+        switch (Breakpoint) {
+            // If the Breakpoint is None or Always, return the default direction
+            case Breakpoint.None: // If breakpoint is None, return the default direction 
+                return $"flex-{defaultState}";
+            case Breakpoint.Always: // If breakpoint is Always, return the reverse direction, honestly the user should just use the Row Property
+                return $"flex-{reverseState}";
+            case Breakpoint.Xs: // Xs is Reverse Direction, Sm and Up is Default Direction
+                return $"flex-{reverseState} flex-sm-{defaultState}";
+            case Breakpoint.Sm: // Xs is Default Direction, Sm is Reverse Direction, Md and Up is Default Direction
+                return $"flex-{defaultState} flex-sm-{reverseState} flex-md-{defaultState}";
+            case Breakpoint.Md: // Xs to Sm is Default Direction, Md is Reverse Direction, Lg and Up is Default Direction
+                return $"flex-{defaultState} flex-md-{reverseState}  flex-lg-{defaultState}";
+            case Breakpoint.Lg: // Xs to Md is Default Direction, Lg is Reverse Direction, Xl and Up is Default Direction
+                return $"flex-{defaultState} flex-lg-{reverseState}  flex-xl-{defaultState}";
+            case Breakpoint.Xl: // Xs to Lg is Default Direction, Xl is Reverse Direction, Xxl is Default Direction
+                return $"flex-{defaultState} flex-xl-{reverseState}  flex-xxl-{defaultState}";
+            case Breakpoint.Xxl: // Xs to Xl is Default Direction, Xxl is Reverse Direction
+                return $"flex-{defaultState} flex-xxl-{reverseState}";
+            case Breakpoint.SmAndDown: // Sm and Down is Reverse Direction, Md and Up is Default Direction
+                return $"flex-{reverseState} flex-md-{defaultState}";
+            case Breakpoint.MdAndDown: // Md and Down is Reverse Direction, Lg and Up is Default Direction
+                return $"flex-{reverseState} flex-lg-{defaultState}";
+            case Breakpoint.LgAndDown: // Lg and Down is Reverse Direction, Xl and Up is Default Direction
+                return $"flex-{reverseState} flex-xl-{defaultState}";
+            case Breakpoint.XlAndDown: // Xl and Down is Reverse Direction, Xxl and Up is Default Direction
+                return $"flex-{reverseState} flex-xxl-{defaultState}";
+            case Breakpoint.SmAndUp: // Xs is Default Direction, Sm and Up is Reverse Direction
+                return $"flex-{defaultState} flex-sm-{reverseState}";
+            case Breakpoint.MdAndUp: // Xs to Sm is Default Direction, Md and Up is Reverse Direction
+                return $"flex-{defaultState} flex-md-{reverseState}";
+            case Breakpoint.LgAndUp: // Xs to Md is Default Direction, Lg and Up is Reverse Direction
+                return $"flex-{defaultState} flex-lg-{reverseState}";
+            case Breakpoint.XlAndUp: // Xs to Lg is Default Direction, Xl and Up is Reverse Direction
+                return $"flex-{defaultState} flex-xl-{reverseState}";
+            default: // Return the default direction if no Breakpoint is Matched
+                return $"flex-{defaultState}";
+        }
+    }
 
     /// <summary>
     /// Displays items horizontally.
@@ -105,46 +160,11 @@ public partial class MudStack : MudComponentBase
     public Wrap? Wrap { get; set; }
 
     /// <summary>
-    /// Sets the flex-direction at the 'extra small' breakpoint.
+    /// The breakpoint at which the Stack should switch to a row or column layout.
     /// </summary>
     [Parameter]
     [Category(CategoryTypes.Stack.Behavior)]
-    public FlexDirection? xs { get; set; }
-
-    /// <summary>
-    /// Sets the flex-direction at the 'small' breakpoint.
-    /// </summary>
-    [Parameter]
-    [Category(CategoryTypes.Stack.Behavior)]
-    public FlexDirection? sm { get; set; }
-
-    /// <summary>
-    /// Sets the flex-direction at the 'medium' breakpoint.
-    /// </summary>
-    [Parameter]
-    [Category(CategoryTypes.Stack.Behavior)]
-    public FlexDirection? md { get; set; }
-
-    /// <summary>
-    /// Sets the flex-direction at the 'large' breakpoint.
-    /// </summary>
-    [Parameter]
-    [Category(CategoryTypes.Stack.Behavior)]
-    public FlexDirection? lg { get; set; }
-
-    /// <summary>
-    /// Sets the flex-direction at the 'extra large' breakpoint.
-    /// </summary>
-    [Parameter]
-    [Category(CategoryTypes.Stack.Behavior)]
-    public FlexDirection? xl { get; set; }
-
-    /// <summary>
-    /// Sets the flex-direction at the 'extra extra large' breakpoint.
-    /// </summary>
-    [Parameter]
-    [Category(CategoryTypes.Stack.Behavior)]
-    public FlexDirection? xxl { get; set; }
+    public Breakpoint Breakpoint { get; set; } = Breakpoint.None;
 
     /// <summary>
     /// The content within this component.

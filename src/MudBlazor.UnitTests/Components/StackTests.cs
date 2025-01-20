@@ -139,12 +139,11 @@ namespace MudBlazor.UnitTests.Components
                 .Add(c => c.Reverse, reverse)
             );
 
-            // Get Reverse State class
-            string reverseState = reverse ? "-reverse" : string.Empty;
             // Get the Default and Reverse States
-            string defaultState = (row ? "row" : "column") + reverseState;
-            string reverseState = (row ? "column" : "row") + reverseState;
+            string defaultState = (row ? "row" : "column") + (reverse ? "-reverse" : string.Empty);
+            string reverseState = (row ? "column" : "row") + (reverse ? "-reverse" : string.Empty);
 
+            // Get the Stack Class
             var stackClass = stack.Find(".d-flex");
 
             // Handle Special Cases

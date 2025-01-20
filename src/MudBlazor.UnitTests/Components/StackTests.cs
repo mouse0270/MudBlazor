@@ -133,11 +133,7 @@ namespace MudBlazor.UnitTests.Components
         [TestCase(Breakpoint.XlAndUp, true, true)]
         public void CheckBreakpointClass(Breakpoint breakpoint, bool row = false, bool reverse = false)
         {
-            var stack = Context.RenderComponent<MudStack>(x => x
-                .Add(c => c.Breakpoint, breakpoint)
-                .Add(c => c.Row, row)
-                .Add(c => c.Reverse, reverse)
-            );
+            var stack = Context.RenderComponent<MudStack>(x => x.Add(c => c.Breakpoint, breakpoint).Add(c => c.Row, row).Add(c => c.Reverse, reverse));
 
             // Get the Default and Reverse States
             string defaultState = (row ? "row" : "column") + (reverse ? "-reverse" : string.Empty);

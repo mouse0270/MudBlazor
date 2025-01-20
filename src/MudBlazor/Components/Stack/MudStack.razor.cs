@@ -24,7 +24,7 @@ public partial class MudStack : MudComponentBase
             .AddClass($"flex-grow-{StretchItems?.ToDescriptionString()}", StretchItems is not null and not MudBlazor.StretchItems.None)
             .AddClass(Class)
             .Build();
-    
+
     /// <summary>
     /// Gets the CSS flex direction based on the current breakpoint and row settings.
     /// </summary>
@@ -38,7 +38,8 @@ public partial class MudStack : MudComponentBase
     /// <returns>
     /// A string representing the CSS flex direction based on the current breakpoint and row settings.
     /// </returns>  
-    private string getFlexDirection() {
+    private string getFlexDirection()
+    {
         // Determine if reverse is needed
         string reverse = Reverse ? "-reverse" : string.Empty;
         // Sets the inital direction based on the Row Parameter and Appends the reverse if needed
@@ -47,7 +48,8 @@ public partial class MudStack : MudComponentBase
         string reverseState = (Row ? "column" : "row") + reverse;
 
         // Switch statement to determine the breakpoint and return the appropriate flex direction
-        switch (Breakpoint) {
+        switch (Breakpoint)
+        {
             // If the Breakpoint is None or Always, return the default direction
             case Breakpoint.None: // If breakpoint is None, return the default direction 
                 return $"flex-{defaultState}";

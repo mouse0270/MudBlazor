@@ -40,12 +40,10 @@ public partial class MudStack : MudComponentBase
     /// </returns>  
     private string getFlexDirection()
     {
-        // Determine if reverse is needed
-        string reverse = Reverse ? "-reverse" : string.Empty;
         // Sets the inital direction based on the Row Parameter and Appends the reverse if needed
-        string defaultState = (Row ? "row" : "column") + reverse;
+        string defaultState = (Row ? "row" : "column") + (Reverse ? "-reverse" : string.Empty);
         // Sets the reverse direction based on the Row Parameter and Appends the reverse if needed
-        string reverseState = (Row ? "column" : "row") + reverse;
+        string reverseState = (Row ? "column" : "row") + (Reverse ? "-reverse" : string.Empty);
 
         // Switch statement to determine the breakpoint and return the appropriate flex direction
         switch (Breakpoint)

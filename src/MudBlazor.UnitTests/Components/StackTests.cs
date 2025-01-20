@@ -133,18 +133,13 @@ namespace MudBlazor.UnitTests.Components
         [TestCase(Breakpoint.XlAndUp, true, true)]
         public void CheckBreakpointClass(Breakpoint breakpoint, bool row = false, bool reverse = false)
         {
-            var stack = Context.RenderComponent<MudStack>(x => 
-                x.Add(c => c.Breakpoint, breakpoint);
-                x.Add(c => c.Row, row);
-                x.Add(c => c.Reverse, reverse);
-            );
+            var stack = Context.RenderComponent<MudStack>(x => x.Add(c => c.Breakpoint, breakpoint).Add(c => c.Row, row).Add(c => c.Reverse, reverse));
 
-            // Get Reverse State class
-            string reverseState = reverse ? "-reverse" : string.Empty;
             // Get the Default and Reverse States
-            string defaultState = (row ? "row" : "column") + reverseState;
-            string reverseState = (row ? "column" : "row") + reverseState;
+            string defaultState = (row ? "row" : "column") + (reverse ? "-reverse" : string.Empty);
+            string reverseState = (row ? "column" : "row") + (reverse ? "-reverse" : string.Empty);
 
+            // Get the Stack Class
             var stackClass = stack.Find(".d-flex");
 
             // Handle Special Cases
@@ -158,51 +153,51 @@ namespace MudBlazor.UnitTests.Components
                     stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState}", "gap-3" });
                     break;
                 case Breakpoint.Xs: // Xs is Reverse Direction, Sm and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState} flex-sm-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState}", $"flex-sm-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.Sm: // Xs is Default Direction, Sm is Reverse Direction, Md and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-sm-{reverseState} flex-md-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-sm-{reverseState}", $"flex-md-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.Md: // Xs to Sm is Default Direction, Md is Reverse Direction, Lg and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-md-{reverseState}  flex-lg-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-md-{reverseState}", $"flex-lg-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.Lg: // Xs to Md is Default Direction, Lg is Reverse Direction, Xl and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-lg-{reverseState}  flex-xl-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-lg-{reverseState}", $"flex-xl-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.Xl: // Xs to Lg is Default Direction, Xl is Reverse Direction, Xxl is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-xl-{reverseState}  flex-xxl-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-xl-{reverseState}", $"flex-xxl-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.Xxl: // Xs to Xl is Default Direction, Xxl is Reverse Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-xxl-{reverseState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-xxl-{reverseState}", "gap-3" });
                     break;
                 case Breakpoint.SmAndDown: // Sm and Down is Reverse Direction, Md and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState} flex-md-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState}", $"flex-md-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.MdAndDown: // Md and Down is Reverse Direction, Lg and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState} flex-lg-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState}", $"flex-lg-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.LgAndDown: // Lg and Down is Reverse Direction, Xl and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState} flex-xl-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState}", $"flex-xl-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.XlAndDown: // Xl and Down is Reverse Direction, Xxl and Up is Default Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState} flex-xxl-{defaultState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{reverseState}", $"flex-xxl-{defaultState}", "gap-3" });
                     break;
                 case Breakpoint.SmAndUp: // Xs is Default Direction, Sm and Up is Reverse Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-sm-{reverseState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-sm-{reverseState}", "gap-3" });
                     break;
                 case Breakpoint.MdAndUp: // Xs to Sm is Default Direction, Md and Up is Reverse Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-md-{reverseState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-md-{reverseState}", "gap-3" });
                     break;
                 case Breakpoint.LgAndUp: // Xs to Md is Default Direction, Lg and Up is Reverse Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-lg-{reverseState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-lg-{reverseState}", "gap-3" });
                     break;
                 case Breakpoint.XlAndUp: // Xs to Lg is Default Direction, Xl and Up is Reverse Direction
-                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState} flex-xl-{reverseState}", "gap-3" });
+                    stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", $"flex-xl-{reverseState}", "gap-3" });
                     break;
                 default: // Return the default direction if no Breakpoint is Matched
                     stackClass.ClassList.Should().ContainInOrder(new[] { "d-flex", $"flex-{defaultState}", "gap-3" });
                     break;
-            } 
+            }
         }
 
         [Test]
